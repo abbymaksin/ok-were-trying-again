@@ -4,7 +4,7 @@
 #define echo 3
 int t0=0;
 unsigned long t1=0;
-int t2=micros ();
+unsigned long  int t2=micros ();
 
 
 // void output and input
@@ -19,15 +19,16 @@ void interrupt_function(){
     }
     else {
         t2=micros();
-        Serial.println(343*(t1-t2)/2*pow(10, -4));
+        //print "the distance in cm is: "
+        Serial.println(343*(t2-t1)/2*pow(10, -4));  //343 is speed of sound in m/s  pow(10,-4) gives distance in centimeters
     }
 // print if it is rising, otherwaise print it's falling
 
-    Serial.println("Hello Im an interrupt");
+   // Serial.println("Hello Im an interrupt");
 }
 void setup(){
 
-Serial.begin(115200);
+Serial.begin(9600);
 pinMode(trig,OUTPUT);
 pinMode(echo,INPUT);
 
@@ -40,7 +41,7 @@ attachInterrupt(digitalPinToInterrupt(echo),interrupt_function,CHANGE);
 
 void loop(){
 
-if(millis()-t0>100){ // If 0.1 second has passed
+if(millis()-t0>500){ // If 0.5 second has passed
     digitalWrite(trig,HIGH);
     // delay(0.01);
     delayMicroseconds(10);
