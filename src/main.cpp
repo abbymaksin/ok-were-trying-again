@@ -41,7 +41,7 @@ attachInterrupt(digitalPinToInterrupt(echo),interrupt_function,CHANGE);
 
 void loop(){
 
-if(millis()-t0>500){ // If 0.5 second has passed
+if(millis()-t0>1000){ // If 0.5 second has passed
     digitalWrite(trig,HIGH);
     // delay(0.01);
     delayMicroseconds(10);
