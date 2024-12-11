@@ -2,12 +2,10 @@
   // make it constant
 #define trig 2 // same as line 3
 #define echo 3
-void interrupt_fuction;
 int t0=0;
 unsigned long t1=0;
 int t2=micros ();
 
-int t0=0;
 
 // void output and input
 void interrupt_function(){
