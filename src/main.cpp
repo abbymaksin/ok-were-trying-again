@@ -2,12 +2,16 @@
   // make it constant
 #define trig 2 // same as line 3
 #define echo 3
-int t0=0;
+
+// unsigned no sign, positive
+// long: an int with twice memory
+
+unsigned long t0=0;
 unsigned long t1=0;
-unsigned long  int t2=micros ();
+unsigned long  t2=micros ();
 
 
-// void output and input
+// void function which gets called on the echo change
 void interrupt_function(){
 
 // if rising, measure the time with micros and store it in t1
@@ -28,16 +32,16 @@ void interrupt_function(){
 }
 void setup(){
 
+// set up serial and pins
 Serial.begin(9600);
 pinMode(trig,OUTPUT);
 pinMode(echo,INPUT);
 
+//attaching the interupt function to run when the echo changes
 attachInterrupt(digitalPinToInterrupt(echo),interrupt_function,CHANGE);
 
 }
 
-// unsigned no sign, positive
-// long: an int with twice memory
 
 void loop(){
 
