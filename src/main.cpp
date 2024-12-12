@@ -2,12 +2,12 @@
   // make it constant
 #define trig 2 // same as line 3
 #define echo 3
-int t0=0;
+unsigned long t0=0;
 unsigned long t1=0;
-int t2=micros ();
+unsigned long t2=micros ();
 
 
-// void output and input
+// this runs when the echo changes
 void interrupt_function(){
 
 // if rising, measure the time with micros and store it in t1
@@ -19,28 +19,29 @@ void interrupt_function(){
     }
     else {
         t2=micros();
-        Serial.println(343*(t1-t2)/2*pow(10, -4));
+        Serial.println(343*(t2-t1)/2*pow(10, -4)); //343 is the speed of sound in units of meters per second- converts distance to centimeters
     }
 // print if it is rising, otherwaise print it's falling
 
     Serial.println("Hello Im an interrupt");
 }
 void setup(){
-
-Serial.begin(115200);
+//setup serial and pins for trigger, input, output, etc
+Serial.begin(9600);
 pinMode(trig,OUTPUT);
 pinMode(echo,INPUT);
-
-attachInterrupt(digitalPinToInterrupt(echo),interrupt_function,CHANGE);
-
-}
-
+Serial.println ("Hi Dr.Nironi!!!:)");
 // unsigned no sign, positive
 // long: an int with twice memory
 
+attachInterrupt(digitalPinToInterrupt(echo),interrupt_function,CHANGE);
+//attaches interrupt function to run when the echo changes
+}
+
+
 void loop(){
 
-if(millis()-t0>100){ // If 0.1 second has passed
+if(millis()-t0>500){ // If 0.5 second has passed
     digitalWrite(trig,HIGH);
     // delay(0.01);
     delayMicroseconds(10);
