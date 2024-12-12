@@ -5,7 +5,7 @@
 unsigned long t0=0;
 unsigned long t1=0;
 unsigned long t2=micros ();
-
+bool available=false;
 
 // this runs when the echo changes
 void interrupt_function(){
@@ -19,11 +19,11 @@ void interrupt_function(){
     }
     else {
         t2=micros();
-        Serial.println(343*(t2-t1)/2*pow(10, -4)); //343 is the speed of sound in units of meters per second- converts distance to centimeters
+        Serial.println("distance "+String(343*(t2-t1)/2*pow(10, -4))+" cms"); //343 is the speed of sound in units of meters per second- converts distance to centimeters
     }
 // print if it is rising, otherwaise print it's falling
 
-    Serial.println("Hello Im an interrupt");
+   // Serial.println("Hello Im an interrupt");
 }
 void setup(){
 //setup serial and pins for trigger, input, output, etc
@@ -47,6 +47,13 @@ if(millis()-t0>500){ // If 0.5 second has passed
     delayMicroseconds(10);
     digitalWrite(trig,LOW);
     t0=millis();
+}
+if(available){
+    noInterrupts();
+    unsigned long t1a=t1;
+    unsigned long t2a=t2;
+    Serial.print(0.0343*(t2-t1)/2.0);
+    available=false;
 }
 }
     // delay(100);   
